@@ -1,0 +1,36 @@
+# 🔐 Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+
+# 🐍 Virtual Environment
+venv/
+.env/
+
+# 🧪 Testing / Coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
+# 📝 Logs
+*.log
+
+# 🐳 Docker
+*.tar
+
+# 🧠 IDE / Editor
+.vscode/
+.idea/
+
+# 🖥 OS Files
+.DS_Store
+Thumbs.db
+
+# 🔐 Secrets (VERY IMPORTANT)
+.env
+*.env
+
+# 📦 Misc
+*.swp
