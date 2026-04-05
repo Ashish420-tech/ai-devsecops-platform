@@ -34,78 +34,65 @@
 ```mermaid
 graph TD
 
-subgraph CODE ["Code Layer"]
-A[GitHub Push]
-B[Gitleaks Pre-commit]
-C[GitHub Actions Trigger]
+subgraph CODE
+A[GitHub Push] --> B[Gitleaks Pre-commit] --> C[GitHub Actions]
 end
 
-subgraph SECURITY ["Security Layer — DevSecOps"]
-D[SonarQube SAST]
-E[Trivy Image Scan]
-F[OWASP ZAP DAST]
-G[OPA Policy Gate]
+subgraph SECURITY
+C --> D[SonarQube SAST]
+C --> E[Trivy Scan]
+C --> F[OWASP ZAP]
+C --> G[OPA Policy]
 end
 
-subgraph BUILD ["Build Layer"]
-H[Docker Build]
-I[ECR Push]
+subgraph BUILD
+G --> H[Docker Build] --> I[ECR Push]
 end
 
-subgraph DEPLOY ["Deploy Layer"]
-J[Argo Rollouts Canary]
-K[ArgoCD GitOps Sync]
+subgraph DEPLOY
+I --> J[Argo Rollouts] --> K[ArgoCD]
 end
 
-subgraph OBSERVE ["Observe Layer"]
-L[Prometheus Metrics]
-M[ELK Logs]
-N[OpenTelemetry Traces]
+subgraph OBSERVE
+K --> L[Prometheus]
+K --> M[ELK]
+K --> N[OpenTelemetry]
 end
 
-subgraph AI ["AI Brain"]
-O[LangChain Agent]
-P[OpenAI API]
-Q[CVE Triage Engine]
-end
-
-subgraph HEAL ["Heal Layer"]
-R[Auto Rollback]
-S[AI Patch PR]
-T[Slack Alert]
-end
-
-A --> B --> C --> D
-C --> H --> I --> J --> K --> L
-L --> O
+subgraph AI
+L --> O[LangChain]
 M --> O
 N --> O
-O --> P --> Q
-Q --> R
-Q --> S
-Q --> T
+O --> P[OpenAI]
+end
 
-D -. vuln feed .-> O
-R -. self-healing loop .-> A
+subgraph HEAL
+P --> Q[Rollback]
+P --> R[Patch PR]
+P --> S[Slack Alert]
+end
 
-style D fill:#fee2e2,stroke:#dc2626
-style E fill:#fee2e2,stroke:#dc2626
-style F fill:#fee2e2,stroke:#dc2626
-style G fill:#fee2e2,stroke:#dc2626
+style D fill:#fee2e2
+style E fill:#fee2e2
+style F fill:#fee2e2
+style G fill:#fee2e2
 
-style O fill:#fef3c7,stroke:#d97706
-style P fill:#fef3c7,stroke:#d97706
+style O fill:#fef3c7
+style P fill:#fef3c7
 
-style R fill:#dcfce7,stroke:#16a34a
-style S fill:#dcfce7,stroke:#16a34a
-style T fill:#dcfce7,stroke:#16a34a
+style Q fill:#dcfce7
+style R fill:#dcfce7
+style S fill:#dcfce7
 
-style L fill:#f1f5f9,stroke:#64748b
-style M fill:#f1f5f9,stroke:#64748b
-style N fill:#f1f5f9,stroke:#64748b
+style L fill:#f1f5f9
+style M fill:#f1f5f9
+style N fill:#f1f5f9
 
-style J fill:#dbeafe,stroke:#2563eb
-style K fill:#dbeafe,stroke:#2563eb
+style J fill:#dbeafe
+style K fill:#dbeafe
+
+
+
 Screenshots
 Session 1 — Flask app running locally
 
